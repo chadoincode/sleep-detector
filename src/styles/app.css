@@ -1,4 +1,24 @@
 @import "tailwindcss";
 @plugin "daisyui"{
-  themes: dark --default business, 
+  themes: dark --default business 
+}
+
+*{
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body {
+  font-family: 'Kumbh Sans', sans-serif;
+  margin: 5% auto;
+  line-height: inherit;
+  display: flex;
+  justify-content: center;
+  max-width: 1080px;
+  background-color: var(--color-dark-purple);
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
