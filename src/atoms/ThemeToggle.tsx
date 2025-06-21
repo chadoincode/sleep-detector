@@ -24,3 +24,5 @@ const ThemeToggle = () => {
     </label>
   )
 }
+
+export default ThemeToggle
