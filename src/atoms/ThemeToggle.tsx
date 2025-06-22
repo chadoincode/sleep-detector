@@ -1,4 +1,13 @@
+import { useState, useEffect } from "react"
+
 const ThemeToggle = () => {
+  const [isDark, setIsDark] = useState(
+    JSON.parse(localStorage.getItem('isDark'))
+  )
+
+  useEffect(() => {
+    localStorage
+  })
   return(
     <label className="swap swap-rotate">
       {/* this hidden checkbox controls the state */}
