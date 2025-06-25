@@ -1,13 +1,9 @@
 export type SleepFormData = {
+  age: string;
+  sleep_duration: string;
+  stress_level: string;
+  physical_activity_level: string;
+  heart_rate: string;
   gender: string;
-  age: number;
-  occupation: string;
-  sleepDuration: number;
-  qualityOfSleep: number;
-  physicalActivity: number;
-  stressLevel: number;
-  bmiCategory: string;
-  dailySteps: number;
-  heartRate: number;
-};
+}
 

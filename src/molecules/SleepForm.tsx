@@ -1,11 +1,12 @@
 import type { SleepFormData } from "../data/SleepFormData";
+import React from "react";
 import Dropdown from "../atoms/Dropdown";
 import InputField from "../atoms/Input";
 import Range from "../atoms/Range";
 import { useState } from "react";
 
 const SleepForm = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<SleepFormData>({
     age: '',
     gender: '',
     sleep_duration: '',
@@ -14,19 +15,42 @@ const SleepForm = () => {
     heart_rate: ''
   })
 
-  const handleChange = () => {
+  const [loading, setLoading] = useState(false)
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const {name, value} = e.target
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }))
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      setLoading(true)
+
+      const dataToSend = {
+        ...formData,
+        age: parseInt(formData.age),
+        sleep_duration: parseFloat(formData.sleep_duration),
+        stress_level: parseInt(formData.stress_level),
+        physical_activity_level: parseFloat(formData.physical_activity_level),
+        heart_rate: parseFloat(formData.heart_rate),
+        gender: formData.gender === "Male" ? 0 : 1
+      }
+    }
   }
   return(
     <div className="border-2 w-fit h-fit p-3 m-5">
       <Dropdown 
         onChange={handleChange}
-        value={formData.gender}
+        value={parseInt(formData.gender)}
       />
       <InputField 
         label="Umur"
         type="number"
         placeholder="Masukkan umur Anda"
+        min={1}
+        max={99}
         value={formData.age}
         onChange={handleChange}
         name="age"
@@ -42,15 +66,26 @@ const SleepForm = () => {
         step={0.1}
       />
       <InputField 
-        label="Detak Jantung"
+        label="Detak Jantung (bpm)"
         type="number"
-        placeholder="Contoh: 6.5"
+        placeholder="Contoh: 72"
         name="sleep_duration"
         onChange={handleChange}
         value={formData.sleep_duration}
         step={0.1}
       />
 
+      <Range 
+        label="Tingkat Stress (1-10)"
+        name="stress_level"
+        onChange={handleChange}
+        value={parseInt(formData.stress_level)}
+        // min={1}
+        // max={10}
+        step={1}
+        marks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+      />
+      
       <Range 
         label="Aktivitas Fisik (1-10)"
         name="physical_activity_level"

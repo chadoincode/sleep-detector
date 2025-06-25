@@ -23,7 +23,7 @@ const Range = ({
 }: RangeProps) => {
   return(
     <div className="w-full max-w-xs">
-      <legend className="label">{label}</legend>
+      <legend className="fieldset-legend text-xs">{label}</legend>
       <input type="range" min={0} max="100" value="25" className="range bg-accent" step="25" />
       <div className="flex justify-between px-2.5 mt-2 text-xs">
         {
