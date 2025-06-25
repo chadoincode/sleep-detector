@@ -2,9 +2,9 @@ import ThemeToggle from "../atoms/ThemeToggle"
 
 const Header = () => {
   return(
-    <div className="flex justify-between">
-      <h1>Sleep Detector</h1>
-      <ThemeToggle />
+    <div className="flex justify-center p-5 border-2 w-full h-fit">
+      <h1 className="font-bold text-4xl text-primary">Sleep Detector</h1>
+      {/* <ThemeToggle /> */}
     </div>
   )
 }

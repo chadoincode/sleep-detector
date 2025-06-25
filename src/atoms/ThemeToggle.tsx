@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react"
+import { themeChange } from "theme-change"
 
 const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(
-    JSON.parse(localStorage.getItem('isDark'))
-  )
-
   useEffect(() => {
-    localStorage
+    themeChange(false)
   })
   return(
     <label className="swap swap-rotate">

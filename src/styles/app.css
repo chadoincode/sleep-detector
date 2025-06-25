@@ -1,9 +1,9 @@
 @import "tailwindcss";
 @plugin "daisyui"{
-  themes: light, dark --default business 
+  themes: light --default, dark --prefersdark, business 
 }
 
-*{
+/* *{
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -21,4 +21,9 @@ body {
 
 *::-webkit-scrollbar {
   display: none;
+} */
+main{
+  height: 100%;
+	display: flex;
+	justify-content: center;
 }
