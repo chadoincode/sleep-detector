@@ -1,6 +1,6 @@
 import React from "react";
 
-type InputProps = {
+type InputFieldProps = {
   label: string
   name: string
   type: string
@@ -12,7 +12,7 @@ type InputProps = {
   placeholder: string
 }
 
-const Input = ({ 
+const InputField = ({ 
   label,
   name,
   type,
@@ -22,7 +22,7 @@ const Input = ({
   onChange,
   step,
   placeholder
-}: InputProps) => {
+}: InputFieldProps) => {
   return(
     <fieldset className="fieldset">
       <legend className="fieldset-legend">{label}</legend>
@@ -43,4 +43,4 @@ const Input = ({
   )
 }
 
-export default Input
+export default InputField
