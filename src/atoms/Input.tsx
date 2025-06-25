@@ -3,12 +3,12 @@ import React from "react";
 type InputFieldProps = {
   label: string
   name: string
-  type: string
-  min: string
-  max: string
-  value: string
+  type?: string
+  min?: number
+  max?: number
+  value: string | number
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-  step: string
+  step?: number
   placeholder: string
 }
 
@@ -38,7 +38,6 @@ const InputField = ({
         required
         step={step}
       />
-      <p className="label">{label}</p>
     </fieldset>
   )
 }

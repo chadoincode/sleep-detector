@@ -28,6 +28,26 @@ const SleepForm = () => {
         placeholder="Masukkan umur Anda"
         value={formData.age}
         onChange={handleChange}
+        name="age"
+      />
+
+      <InputField 
+        label="Durasi Tidur (jam)"
+        type="number"
+        placeholder="Contoh: 6.5"
+        name="sleep_duration"
+        onChange={handleChange}
+        value={formData.sleep_duration}
+        step={0.1}
+      />
+      <InputField 
+        label="Detak Jantung"
+        type="number"
+        placeholder="Contoh: 6.5"
+        name="sleep_duration"
+        onChange={handleChange}
+        value={formData.sleep_duration}
+        step={0.1}
       />
     </div>
   )
