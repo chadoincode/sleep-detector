@@ -1,21 +1,46 @@
-const Range = () => {
+import React from "react"
+
+type RangeProps = {
+  label: string
+  name: string
+  min?: number
+  max?: number
+  step?: number
+  value: string | number
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+  marks?: number[]
+}
+
+const Range = ({
+  label,
+  name,
+  min,
+  max,
+  step,
+  value, 
+  onChange,
+  marks
+}: RangeProps) => {
   return(
     <div className="w-full max-w-xs">
-      <input type="range" min={0} max="100" value="25" className="range bg-primary" step="25" />
+      <legend className="label">{label}</legend>
+      <input type="range" min={0} max="100" value="25" className="range bg-accent" step="25" />
       <div className="flex justify-between px-2.5 mt-2 text-xs">
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
-        <span>|</span>
+        {
+          marks?.map((_, i) => (
+            <span key={i}>|</span>
+          ))
+        }
       </div>
       <div className="flex justify-between px-2.5 mt-2 text-xs">
-        <span>1</span>
-        <span>2</span>
-        <span>3</span>
-        <span>4</span>
-        <span>5</span>
+        {
+          marks?.map((mark) => (
+            <span key={mark}>{mark}</span>
+          ))
+        }
       </div>
     </div>
   )
 }
+
+export default Range

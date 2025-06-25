@@ -1,6 +1,7 @@
 import type { SleepFormData } from "../data/SleepFormData";
 import Dropdown from "../atoms/Dropdown";
 import InputField from "../atoms/Input";
+import Range from "../atoms/Range";
 import { useState } from "react";
 
 const SleepForm = () => {
@@ -48,6 +49,17 @@ const SleepForm = () => {
         onChange={handleChange}
         value={formData.sleep_duration}
         step={0.1}
+      />
+
+      <Range 
+        label="Aktivitas Fisik (1-10)"
+        name="physical_activity_level"
+        onChange={handleChange}
+        value={parseInt(formData.physical_activity_level)}
+        // min={1}
+        // max={10}
+        step={1}
+        marks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
       />
     </div>
   )
