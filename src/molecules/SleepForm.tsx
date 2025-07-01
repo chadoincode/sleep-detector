@@ -2,10 +2,8 @@ import type { SleepFormData } from "../data/SleepFormData";
 import React from "react";
 import Dropdown from "../atoms/Dropdown";
 import InputField from "../atoms/Input";
-import Range from "../atoms/Range";
 import { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router";
 
 const SleepForm = () => {
   const [formData, setFormData] = useState<SleepFormData>({
@@ -18,7 +16,6 @@ const SleepForm = () => {
   })
 
   const [loading, setLoading] = useState(false)
-  // const navigate = useNavigate()
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const {name, value} = e.target
@@ -29,25 +26,26 @@ const SleepForm = () => {
   }
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    console.log("Form data yang dikirim:", formData);
     e.preventDefault()
     setLoading(true)
-
+   
     const dataToSend = {
       ...formData,
-      age: parseInt(formData.age),
+      age: parseFloat(formData.age),
       sleep_duration: parseFloat(formData.sleep_duration),
-      stress_level: parseInt(formData.stress_level),
+      stress_level: parseFloat(formData.stress_level),
       physical_activity_level: parseFloat(formData.physical_activity_level),
       heart_rate: parseFloat(formData.heart_rate),
-      gender: formData.gender === "Male" ? 0 : 1
+      gender: formData.gender
     }
 
     try {
-      const res = await axios.post("", dataToSend)
+      const res = await axios.post("http://localhost:5000/predict", dataToSend)
       const hasil = res.data.hasil
       localStorage.setItem("hasil_tidur", hasil)
-      // navigate("/result")
       window.location.href = "/result"
+      console.log(res.data)
     } catch (error) {
       console.error("Gagal memprediksi: ", error)
     } finally {
@@ -57,9 +55,10 @@ const SleepForm = () => {
 
   return(
     <form onSubmit={handleSubmit}>
-      <div className="border-2 w-fit h-fit p-3 m-5">
+      <div className="border-2 w-fit h-fit p-3 m-5 ">
         <Dropdown 
-          onChange={handleChange}
+          name="gender"
+          onChange={(e)  => setFormData({...formData, gender: e.target.value})}
           value={formData.gender}
         />
         <InputField 
@@ -76,45 +75,48 @@ const SleepForm = () => {
         <InputField 
           label="Durasi Tidur (jam)"
           type="number"
-          placeholder="Contoh: 6.5"
+          placeholder="Contoh: 6.5 jam"
           name="sleep_duration"
           onChange={handleChange}
           value={formData.sleep_duration}
           step={0.1}
         />
+
         <InputField 
           label="Detak Jantung (bpm)"
           type="number"
-          placeholder="Contoh: 72"
+          placeholder="Contoh: 72 bpm"
           name="heart_rate"
           onChange={handleChange}
           value={formData.heart_rate}
           step={0.1}
         />
 
-        <Range 
+        <InputField 
           label="Tingkat Stress (1-10)"
+          type="number"
+          placeholder="Contoh: 6"
           name="stress_level"
           onChange={handleChange}
-          value={parseInt(formData.stress_level)}
-          // min={1}
-          // max={10}
-          step={1}
-          marks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+          value={formData.stress_level}
+          step={0.1}
+          min={1}
+          max={10}
         />
-        
-        <Range 
+
+        <InputField 
           label="Aktivitas Fisik (1-10)"
+          type="number"
+          placeholder="Contoh: 8"
           name="physical_activity_level"
           onChange={handleChange}
-          value={parseInt(formData.physical_activity_level)}
-          // min={1}
-          // max={10}
-          step={1}
-          marks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+          value={formData.physical_activity_level}
+          step={0.1}
         />
-        <button type="submit" disabled={loading}>
-          {loading ? "Loading..." : "Submit"}
+        <button type="submit" className={`btn btn-primary mt-3 w-full ${loading ? "btn-disabled" : ""}`}>
+          {
+            loading ? "Memroses..." : "Prediksi Kualitas Tidur"
+          }
         </button>
       </div>
     </form>
