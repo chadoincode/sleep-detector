@@ -42,7 +42,7 @@ const SleepForm = () => {
     }
 
     try {
-      const res = await axios.post("https://sleep-detector-ai-production.up.railway.app/", dataToSend)
+      const res = await axios.post("https://sleep-detector-ai-production.up.railway.app/predict", dataToSend)
       const hasil = res.data.hasil
       localStorage.setItem("hasil_tidur", hasil)
       window.location.href = "/result"
