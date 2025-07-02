@@ -4,9 +4,12 @@ import Input from "../atoms/Input"
 import Header from '../sections/Header'
 import SleepForm from "../molecules/SleepForm"
 import '../styles/app.css'
+import FadeIn from "../animations/FadeIn";
 ---
 <header>
-  <Header client:load />
+  <FadeIn delay={0.2} client:load>
+    <Header client:load />
+  </FadeIn>
 </header>
 <main>
   <SleepForm client:load />

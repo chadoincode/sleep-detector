@@ -1,15 +1,9 @@
 ---
 import ResultPage from "../molecules/ResultPage"
 import '../styles/app.css'
+import Layout from "../layouts/Layout.astro"
 
 ---
-<html>
-  <head>
-    <title>Hasil Prediksi | Sleep Detector</title>
-  </head>
-  <body>
-    <main>
-      <ResultPage client:load />
-    </main>
-  </body>
-</html>
+<Layout>
+  <ResultPage client:load />
+</Layout>

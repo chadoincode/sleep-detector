@@ -4,6 +4,7 @@ import Dropdown from "../atoms/Dropdown";
 import InputField from "../atoms/Input";
 import { useState } from "react";
 import axios from "axios";
+import FadeIn from "../animations/FadeIn";
 
 const SleepForm = () => {
   const [formData, setFormData] = useState<SleepFormData>({
@@ -41,7 +42,7 @@ const SleepForm = () => {
     }
 
     try {
-      const res = await axios.post("http://localhost:5000/predict", dataToSend)
+      const res = await axios.post("https://sleep-detector-ai-production.up.railway.app/", dataToSend)
       const hasil = res.data.hasil
       localStorage.setItem("hasil_tidur", hasil)
       window.location.href = "/result"
@@ -55,70 +56,72 @@ const SleepForm = () => {
 
   return(
     <form onSubmit={handleSubmit}>
-      <div className="border-2 w-fit h-fit p-3 m-5 ">
-        <Dropdown 
-          name="gender"
-          onChange={(e)  => setFormData({...formData, gender: e.target.value})}
-          value={formData.gender}
-        />
-        <InputField 
-          label="Umur"
-          type="number"
-          placeholder="Masukkan umur Anda"
-          min={1}
-          max={99}
-          value={formData.age}
-          onChange={handleChange}
-          name="age"
-        />
+      <FadeIn delay={0.3}>
+        <div className="border-2 rounded-lg border-primary w-fit h-fit p-3 m-5 ">
+          <Dropdown 
+            name="gender"
+            onChange={(e)  => setFormData({...formData, gender: e.target.value})}
+            value={formData.gender}
+          />
+          <InputField 
+            label="Umur"
+            type="number"
+            placeholder="Masukkan umur Anda"
+            min={1}
+            max={99}
+            value={formData.age}
+            onChange={handleChange}
+            name="age"
+            />
 
-        <InputField 
-          label="Durasi Tidur (jam)"
-          type="number"
-          placeholder="Contoh: 6.5 jam"
-          name="sleep_duration"
-          onChange={handleChange}
-          value={formData.sleep_duration}
-          step={0.1}
-        />
+          <InputField 
+            label="Durasi Tidur (jam)"
+            type="number"
+            placeholder="Contoh: 6.5 jam"
+            name="sleep_duration"
+            onChange={handleChange}
+            value={formData.sleep_duration}
+            step={0.1}
+            />
 
-        <InputField 
-          label="Detak Jantung (bpm)"
-          type="number"
-          placeholder="Contoh: 72 bpm"
-          name="heart_rate"
-          onChange={handleChange}
-          value={formData.heart_rate}
-          step={0.1}
-        />
+          <InputField 
+            label="Detak Jantung (bpm)"
+            type="number"
+            placeholder="Contoh: 72 bpm"
+            name="heart_rate"
+            onChange={handleChange}
+            value={formData.heart_rate}
+            step={0.1}
+            />
 
-        <InputField 
-          label="Tingkat Stress (1-10)"
-          type="number"
-          placeholder="Contoh: 6"
-          name="stress_level"
-          onChange={handleChange}
-          value={formData.stress_level}
-          step={0.1}
-          min={1}
-          max={10}
-        />
+          <InputField 
+            label="Tingkat Stress (1-10)"
+            type="number"
+            placeholder="Contoh: 6"
+            name="stress_level"
+            onChange={handleChange}
+            value={formData.stress_level}
+            step={0.1}
+            min={1}
+            max={10}
+            />
 
-        <InputField 
-          label="Aktivitas Fisik (1-10)"
-          type="number"
-          placeholder="Contoh: 8"
-          name="physical_activity_level"
-          onChange={handleChange}
-          value={formData.physical_activity_level}
-          step={0.1}
-        />
-        <button type="submit" className={`btn btn-primary mt-3 w-full ${loading ? "btn-disabled" : ""}`}>
-          {
-            loading ? "Memroses..." : "Prediksi Kualitas Tidur"
-          }
-        </button>
-      </div>
+          <InputField 
+            label="Aktivitas Fisik (1-10)"
+            type="number"
+            placeholder="Contoh: 8"
+            name="physical_activity_level"
+            onChange={handleChange}
+            value={formData.physical_activity_level}
+            step={0.1}
+            />
+          <button type="submit" className={`btn btn-primary mt-3 w-full ${loading ? "btn-disabled" : ""}`}>
+            {
+              loading ? "Memproses..." : "Prediksi Kualitas Tidur"
+            }
+          </button>
+        </div>
+      </FadeIn>
     </form>
   )
 }
